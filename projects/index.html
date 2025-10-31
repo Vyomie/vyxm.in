@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>VYXM/Projects</title>
+    <meta property="og:title" content="Projects" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+    <meta property="twitter:card" content="summary_large_image" />
+
+    <style data-tag="reset-style-sheet">
+      html {  line-height: 1.15;}body {  margin: 0;}* {  box-sizing: border-box;  border-width: 0;  border-style: solid;}p,li,ul,pre,div,h1,h2,h3,h4,h5,h6,figure,blockquote,figcaption {  margin: 0;  padding: 0;}button {  background-color: transparent;}button,input,optgroup,select,textarea {  font-family: inherit;  font-size: 100%;  line-height: 1.15;  margin: 0;}button,select {  text-transform: none;}button,[type="button"],[type="reset"],[type="submit"] {  -webkit-appearance: button;}button::-moz-focus-inner,[type="button"]::-moz-focus-inner,[type="reset"]::-moz-focus-inner,[type="submit"]::-moz-focus-inner {  border-style: none;  padding: 0;}button:-moz-focus,[type="button"]:-moz-focus,[type="reset"]:-moz-focus,[type="submit"]:-moz-focus {  outline: 1px dotted ButtonText;}a {  color: inherit;  text-decoration: inherit;}input {  padding: 2px 4px;}img {  display: block;}html { scroll-behavior: smooth  }
+    </style>
+    <style data-tag="default-style-sheet">
+      html {
+        font-family: DM Sans;
+        font-size: 16px;
+      }
+
+      body {
+        font-weight: 400;
+        font-style:normal;
+        text-decoration: none;
+        text-transform: undefined;
+        letter-spacing: normal;
+        line-height: 1.3;
+        color: var(--dl-color-scheme-darkblue);
+        background-color: var(--dl-color-scheme-white);
+
+        fill: var(--dl-color-scheme-darkblue);
+      }
+    </style>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/animate.css@4.1.1/animate.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital,wght@0,400;1,400&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/@teleporthq/teleport-custom-scripts/dist/style.css"
+    />
+    <style>
+      .services-card:hover > div{
+      background-color: #fff
+      }
+    </style>
+  </head>
+  <body>
+    <link rel="stylesheet" href="./style.css" />
+    <div>
+      <link href="./index.css" rel="stylesheet" />
+
+      <div class="home-container">
+        <header
+          data-role="Header"
+          class="navigation-header navigation-root-class-name"
+        >
+          <img
+            alt="logo"
+            src="public/vyxm_transparent-1500w-200h.png"
+            class="navigation-image"
+          />
+          <div class="navigation-max-width">
+            <div class="navigation-nav">
+              <nav
+                class="navigation-links-nav navigation-links-root-class-name17"
+              >
+                <a
+                  href="https://vyxm.in"
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  class="navigation-links-link Navigation-Link"
+                >
+                  <span>Home</span>
+                </a>
+                <a
+                  href="https://vyxm.in/#About"
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  class="navigation-links-link1 Navigation-Link"
+                >
+                  <span>About</span>
+                </a>
+                <a
+                  href="https://vyxm.in/api"
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  class="navigation-links-link2 Navigation-Link"
+                >
+                  <span>API</span>
+                </a>
+                <a
+                  href="https://vyxm.in/#Contact"
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  class="navigation-links-link3 Navigation-Link"
+                >
+                  <span>Contact</span>
+                </a>
+              </nav>
+            </div>
+            <div data-role="BurgerMenu" class="navigation-burger-menu">
+              <svg viewBox="0 0 1024 1024" class="navigation-icon">
+                <path
+                  d="M128 554.667h768c23.552 0 42.667-19.115 42.667-42.667s-19.115-42.667-42.667-42.667h-768c-23.552 0-42.667 19.115-42.667 42.667s19.115 42.667 42.667 42.667zM128 298.667h768c23.552 0 42.667-19.115 42.667-42.667s-19.115-42.667-42.667-42.667h-768c-23.552 0-42.667 19.115-42.667 42.667s19.115 42.667 42.667 42.667zM128 810.667h768c23.552 0 42.667-19.115 42.667-42.667s-19.115-42.667-42.667-42.667h-768c-23.552 0-42.667 19.115-42.667 42.667s19.115 42.667 42.667 42.667z"
+                ></path>
+              </svg>
+            </div>
+            <div data-role="MobileMenu" class="mobile-menu">
+              <div class="navigation-nav1">
+                <div class="navigation-container">
+                  <img alt="image" src="public/logo1-1500h.png" />
+                  <div
+                    data-role="CloseMobileMenu"
+                    class="navigation-close-mobile-menu"
+                  >
+                    <svg viewBox="0 0 1024 1024" class="navigation-icon2">
+                      <path
+                        d="M810 274l-238 238 238 238-60 60-238-238-238 238-60-60 238-238-238-238 60-60 238 238 238-238z"
+                      ></path>
+                    </svg>
+                  </div>
+                </div>
+                <nav
+                  class="navigation-links-nav navigation-links-root-class-name18"
+                >
+                  <a
+                    href="https://vyxm.in"
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    class="navigation-links-link Navigation-Link"
+                  >
+                    <span>Home</span>
+                  </a>
+                  <a
+                    href="https://vyxm.in/#About"
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    class="navigation-links-link1 Navigation-Link"
+                  >
+                    <span>About</span>
+                  </a>
+                  <a
+                    href="https://vyxm.in/api"
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    class="navigation-links-link2 Navigation-Link"
+                  >
+                    <span>API</span>
+                  </a>
+                  <a
+                    href="https://vyxm.in/#Contact"
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    class="navigation-links-link3 Navigation-Link"
+                  >
+                    <span>Contact</span>
+                  </a>
+                </nav>
+                <button class="button-secondary button button-md">
+                  <span>Get in touch</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </header>
+        <main class="home-main">
+          <div class="home-hero section-container">
+            <div class="home-max-width max-content-container">
+              <div class="home-gallery">
+                <div class="home-container1">
+                  <img
+                    alt="image"
+                    src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fjohnsneaker.com%2Fwp-content%2Fuploads%2F2021%2F06%2Fil_fullxfull.3078374836_5105-scaled.jpg&amp;f=1&amp;nofb=1&amp;ipt=978f17dca502446591a45ad6aa6b6a5f0274e0b261ea6a53fdef14ee5d95849e&amp;ipo=images"
+                    class="home-image"
+                  />
+                </div>
+                <div class="home-container2">
+                  <img
+                    alt="image"
+                    src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwallpapercave.com%2Fwp%2Fwp7945843.jpg&amp;f=1&amp;nofb=1&amp;ipt=f134da98bcd05824ec2d4c53a297444b87abef9222d8219f6258c4b9de638f37&amp;ipo=images"
+                    class="home-image1"
+                  />
+                  <img
+                    alt="image"
+                    src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwallpaperaccess.com%2Ffull%2F1154060.jpg&amp;f=1&amp;nofb=1&amp;ipt=358b390ecd13a7a8c6a2303e562f7e5d0291166bdff5022321d27130d631072c&amp;ipo=images"
+                    class="home-image2"
+                  />
+                </div>
+                <div class="home-container3">
+                  <img
+                    alt="image"
+                    src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fraspberry-pi.fr%2Fwp-content%2Fuploads%2F2019%2F09%2Fraspberry-pi-leds.jpg&amp;f=1&amp;nofb=1&amp;ipt=56f94af8748e50c18aaa0fd5ceff817514fafb07d414880af9b599fa30fab569&amp;ipo=images"
+                    class="home-image3"
+                  />
+                  <div class="home-container4">
+                    <img
+                      alt="image"
+                      src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwallpapercave.com%2Fwp%2Fwp5779572.jpg&amp;f=1&amp;nofb=1&amp;ipt=6646be7f7b567968c5cf581f3e9203d6394c3e7af7365fdc22c3e10864c998ec&amp;ipo=images"
+                      class="home-image4"
+                    />
+                    <img
+                      alt="image"
+                      src="public/rectangle%2095%20%5B5%5D-2300h.png"
+                      class="home-image5"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="home-portofolio section-container">
+            <div class="home-max-width1 max-content-container">
+              <div class="home-text-container">
+                <span class="home-text">My work</span>
+                <h2 class="home-text1 Heading2">Explore my projects</h2>
+              </div>
+              <div class="home-tab-selector-cards-container">
+                <a
+                  href="https://vyxm.in/projects/cozmoclench"
+                  target="_blank"
+                  rel="noreferrer noopener"
+                >
+                  <div
+                    class="portofolio-card-speaker-card portofolio-card-root-class-name"
+                  >
+                    <div class="portofolio-card-image-container">
+                      <img
+                        alt="image"
+                        src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Ftechfest.org%2Fmedia%2Fcompi%2Fcozmoclench.jpg&amp;f=1&amp;nofb=1&amp;ipt=a663d6cf3b625643def43f5a47d02b8c0af207bd1a22b868c2f2b5caffd966ee&amp;ipo=images"
+                        class="portofolio-card-image"
+                      />
+                      <div class="portofolio-card-see-project-container">
+                        <button href="https://vyxm.in/projects/cozmoclench" class="button-secondary-white button button-md">
+                          See project
+                        </button>
+                      </div>
+                    </div>
+                    <span class="portofolio-card-first-name">
+                      <span>Cozmoclench Robot</span>
+                    </span>
+                  </div>
+                </a>
+                <a
+                  href="https://vyxm.in/projects/ar"
+                  target="_blank"
+                  rel="noreferrer noopener"
+                >
+                  <div
+                    class="portofolio-card-speaker-card portofolio-card-root-class-name2"
+                  >
+                    <div class="portofolio-card-image-container">
+                      <img
+                        alt="image"
+                        src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fsportsmatik.com%2Fuploads%2Fwiki-technologies%2Faugmented-reality-glasses_1562932664.jpg&amp;f=1&amp;nofb=1&amp;ipt=c80a01fd34200fdb0bdcd8156d71d086346cdd9c70d713317cd89f83754c52c5&amp;ipo=images"
+                        class="portofolio-card-image"
+                      />
+                      <div class="portofolio-card-see-project-container">
+                        <button href="https://vyxm.in/projects/ar" class="button-secondary-white button button-md">
+                          See project
+                        </button>
+                      </div>
+                    </div>
+                    <span class="portofolio-card-first-name">
+                      <span>Augmented Reality Glasses (DIY)</span>
+                    </span>
+                  </div>
+                </a>
+                <div
+                  class="portofolio-card-speaker-card portofolio-card-root-class-name5"
+                >
+                  <div class="portofolio-card-image-container">
+                    <img
+                      alt="image"
+                      src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fstatic.vecteezy.com%2Fsystem%2Fresources%2Fpreviews%2F004%2F141%2F669%2Fnon_2x%2Fno-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg&amp;f=1&amp;nofb=1&amp;ipt=880b9b4ae235d0732b485d4b36118a92cd80d2df2615cc28838ccc2934a86494&amp;ipo=images"
+                      class="portofolio-card-image"
+                    />
+                    <div class="portofolio-card-see-project-container">
+                      <button class="button-secondary-white button button-md">
+                        See project
+                      </button>
+                    </div>
+                  </div>
+                  <span class="portofolio-card-first-name">
+                    <span>More To Come..</span>
+                  </span>
+                </div>
+                <a
+                  href="https://vyxm.in/projects/lifi"
+                  target="_blank"
+                  rel="noreferrer noopener"
+                >
+                  <div
+                    class="portofolio-card-speaker-card portofolio-card-root-class-name1"
+                  >
+                    <div class="portofolio-card-image-container">
+                      <img
+                        alt="image"
+                        src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.hjrWtArkvwmhV4hxOYdBMgHaC0%26pid%3DApi&amp;f=1&amp;ipt=fd68f63ce780b4127f25b29cb46cb1e8eb197f341441682cfc8a56d6e6c68e1e&amp;ipo=images"
+                        class="portofolio-card-image"
+                      />
+                      <div class="portofolio-card-see-project-container">
+                        <button href="https://vyxm.in/projects/lifi" class="button-secondary-white button button-md">
+                          See project
+                        </button>
+                      </div>
+                    </div>
+                    <span class="portofolio-card-first-name">
+                      <span>Li-Fi (Light Fidelity)</span>
+                    </span>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="home-banner section-container">
+            <div class="home-max-width2 max-content-container">
+              <span class="home-text2">what are you waiting FOR?</span>
+              <h2 class="home-text3 Heading2">
+                <span>Let’s collaborate!</span>
+              </h2>
+              <span class="home-text5">
+                I'd Love To Be A Part Of YOUR Projects And Journey ;)
+              </span>
+              <a
+                href="https://vyxm.in/#Contact"
+                target="_blank"
+                rel="noreferrer noopener"
+                class="home-primary button-lg button-secondary-white button"
+              >
+                Contact Me
+              </a>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+    <script
+      defer=""
+      src="https://unpkg.com/@teleporthq/teleport-custom-scripts"
+    ></script>
+    <script defer="">
+      window.onload = () => {
+        const runAllScripts = () => {
+          initializeAllSliders();
+        };
+
+        const listenForUrlChanges = () => {
+          let url = location.href;
+          document.body.addEventListener(
+            "click",
+            () => {
+              requestAnimationFrame(() => {
+                if (url !== location.href) {
+                  runAllScripts();
+                  url = location.href;
+                }
+              });
+            },
+            true
+          );
+        };
+
+        const initializeAllSliders = () => {
+          const allSliders = document.querySelectorAll('[data-type="slider"]');
+          allSliders.forEach((slider) => {
+            initializeSlider(slider);
+          });
+        };
+
+        const initializeSlider = (slider) => {
+          const slides = slider.querySelectorAll('[data-type="slide"]');
+          const middle = Math.ceil(slides.length / 2);
+          let currentSlide = middle;
+
+          const nextSlideBtns = document.querySelectorAll(
+            '[data-action="nextSlide"]'
+          );
+          const previousSlideBtns = document.querySelectorAll(
+            '[data-action="previousSlide"]'
+          );
+
+          const changeSlide = (slideIndex, action) => {
+            currentSlide = slideIndex;
+
+            switch (action) {
+              case "next":
+                slideIndex === slides.length
+                  ? (currentSlide = 1)
+                  : currentSlide++;
+                break;
+              case "previous":
+                slideIndex === 1
+                  ? (currentSlide = slides.length)
+                  : currentSlide--;
+            }
+
+            const slide = slides[0];
+            if (!slide) {
+              console.error("No slides present");
+              return;
+            }
+            const style = window.getComputedStyle(slide);
+            slideWidth =
+              parseInt(style.width) +
+              parseInt(style.marginLeft) +
+              parseInt(style.marginRight);
+            const transformValue = -slideWidth * (currentSlide - middle);
+
+            slider.style.transform = `translateX(${transformValue}px)`;
+          };
+
+          previousSlideBtns.forEach((btn) => {
+            btn.addEventListener("click", () =>
+              changeSlide(currentSlide, "previous")
+            );
+          });
+
+          nextSlideBtns.forEach((btn) => {
+            btn.addEventListener("click", () =>
+              changeSlide(currentSlide, "next")
+            );
+          });
+        };
+
+        runAllScripts();
+      };
+    </script>
+  </body>
+</html>

@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Vyom — Developer</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#000;
+  --fg:#fff;
+  --muted:#999;
+  --timeline-marker:rgba(200,200,200,0.3);
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--fg);
+  font-family:'JetBrains Mono',monospace;
+  line-height:1.5;
+  scroll-behavior:smooth;
+}
+section{
+  width:100%;
+  padding:80px 10vw;
+  border-bottom:1px solid #111;
+}
+h1,h2,h3{margin:0 0 20px}
+a{color:var(--fg);text-decoration:none}
+a:hover{text-decoration:underline}
+p{margin:0 0 10px}
+
+/* --- HEADER --- */
+#header{
+  position:relative;
+  width:100%;
+  height:400px;
+  background:url('https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+}
+#header #avatar{
+  position:absolute;
+  bottom:20px;
+  left:50px;
+  width:150px;
+  height:150px;
+  border-radius:50%;
+  border:3px solid #fff;
+  background:url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTO7w-fRlAt7y5UCPmU20fVJkC_zSsuRBLsjg&s') center/cover no-repeat;
+}
+
+/* --- HERO --- */
+#hero{
+  display:flex;flex-direction:column;justify-content:center;
+  min-height:60vh;
+}
+#hero h1{font-size:3em}
+#hero .handle{color:var(--muted);margin-bottom:20px}
+#hero .bio{max-width:700px;color:var(--muted)}
+
+/* --- TIMELINE --- */
+.timeline{
+  position:relative;
+  padding-left:50px;
+  border-left:2px solid #222;
+}
+.timeline-entry{
+  margin-bottom:40px;
+  position:relative;
+}
+.timeline-entry::before{
+  content:'';
+  position:absolute;
+  left:-25px;top:6px;
+  width:16px;height:16px;
+  background:var(--timeline-marker);
+  border-radius:50%;
+}
+.timeline-entry h3{margin:0;font-size:1.1em}
+.timeline-entry .time{color:var(--muted);font-size:0.9em;margin-bottom:5px}
+
+/* --- TECHNOLOGIES --- */
+.tech-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(100px,1fr));
+  gap:20px;
+  align-items:center;
+}
+.tech-item{text-align:center;font-size:0.85em}
+.tech-item img{width:50px;height:50px;margin-bottom:5px;filter:brightness(1.2)}
+
+/* --- PROJECTS --- */
+.projects{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:40px;
+}
+.project{
+  position:relative;
+  overflow:hidden;
+}
+.project img{
+  width:100%;
+  height:200px;
+  object-fit:cover;
+  display:block;
+  filter:grayscale(100%) brightness(0.7);
+  transition:.3s;
+}
+.project-title{
+  position:absolute;
+  bottom:10px;left:10px;
+  background:rgba(0,0,0,0.6);
+  padding:4px 8px;
+  font-weight:600;
+}
+.tooltip{
+  position:absolute;
+  top:0;left:0;
+  width:100%;
+  height:100%;
+  background:rgba(15,15,15,0.95);
+  color:var(--muted);
+  padding:20px;
+  opacity:0;
+  pointer-events:none;
+  transition:.2s;
+  font-size:0.9em;
+  overflow-y:auto;
+}
+.project:hover img{filter:brightness(0.4)}
+.project:hover .tooltip{
+  opacity:1;
+  pointer-events:auto;
+}
+
+/* --- TWEETS --- */
+.tweets{
+  max-width:800px;
+  margin:auto;
+}
+.tweet{
+  border-top:1px solid #111;
+  padding:20px 0;
+}
+.tweet:first-child{border-top:none}
+.tweet .meta{color:var(--muted);font-size:0.85em}
+
+/* --- SPOTIFY & GITHUB --- */
+.widget{
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+  max-width:800px;
+  margin:auto;
+  padding:20px 0;
+}
+.widget .title{font-weight:600;margin-bottom:10px}
+.widget .card{
+  border:1px solid #111;
+  padding:15px;
+  background:rgba(25,25,25,0.6);
+}
+
+/* --- ASCII ART --- */
+.ascii{
+  font-family:'JetBrains Mono',monospace;
+  white-space:pre;
+  text-align:center;
+  color:var(--muted);
+  margin:80px 0;
+}
+
+/* --- CONTACT --- */
+footer{
+  text-align:center;
+  padding:60px 10vw;
+  color:var(--muted);
+  font-size:0.9em;
+}
+
+/* subtle fade on scroll */
+.fade{opacity:0;transform:translateY(40px);transition:.8s ease-out;}
+.fade.visible{opacity:1;transform:none;}
+</style>
+
+<style>
+/* MOBILE RESPONSIVE */
+@media screen and (max-width: 900px) {
+  section {padding:60px 5vw;}
+  #hero h1 {font-size:2.2em;}
+  #hero .bio {max-width:100%; font-size:0.95em;}
+  
+  /* Timeline */
+  .timeline {padding-left:20px; border-left:2px solid #222;}
+  .timeline-entry {margin-bottom:25px;}
+  .timeline-entry::before {left:-12px; width:12px; height:12px; top:4px;}
+  .timeline-entry h3 {font-size:1em;}
+  .timeline-entry .time {font-size:0.8em;}
+  
+  /* Technologies grid */
+  .tech-grid {grid-template-columns:repeat(auto-fit,minmax(80px,1fr)); gap:15px;}
+  .tech-item img {width:40px;height:40px;}
+
+  /* Projects grid */
+  .projects {grid-template-columns:1fr; gap:20px;}
+  .project img {height:180px;}
+  .project .tooltip {font-size:0.85em; padding:15px;}
+
+  /* Spotify & GitHub */
+  #widgets div[style*="flex:0 0"] {flex:1 1 100%; max-width:100%;}
+  #widgets div[style*="flex:0 0"] iframe {width:100%; height:300px;}
+
+  /* Tweets */
+  .tweets {padding:0 10px;}
+  
+  /* Quotes */
+  #quotes div {padding:0 10px;}
+  /* Prevent horizontal overflow */
+  body {
+    overflow-x: hidden; /* hides horizontal scroll */
+  }
+
+  /* ASCII background */
+  pre[style] {
+    max-width: 100%;   /* prevent it from overflowing */
+    white-space: pre-wrap; /* wrap long lines */
+    overflow: hidden; /* clip anything still overflowing */
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .ascii pre {
+    font-size: 6px;          /* shrink font on mobile */
+    line-height: 1;
+    white-space: pre-wrap;   /* wrap long lines */
+    overflow-x: hidden;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+  #widgets {
+    display: flex;
+    flex-wrap: wrap;      /* stack on narrow screens */
+    justify-content: center;
+    gap: 20px;
+  }
+
+  #widgets > div {
+    flex: 1 1 300px;      /* take full width if narrow */
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  #widgets iframe {
+    width: 100% !important; /* responsive iframe */
+    height: auto;
+  }
+
+  /* Timeline / Project / Tech Grid adjustments */
+  .timeline, .projects, .tech-grid {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  /* Project tooltips: keep within container */
+  .project .tooltip {
+    max-width: 100%;
+    overflow-x: auto;
+    word-wrap: break-word;
+  }
+
+  /* Responsive fixes already applied for <900px screens remain */
+
+  
+}
+/* --- GLASSY FLOATING NAVBAR --- */
+#navbar {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  backdrop-filter: blur(12px);
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 20px;
+  padding: 10px 40px;
+  z-index: 1000;
+  animation: floatNavbar 4s ease-in-out infinite;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+  max-width: 95%; /* prevents overflow on mobile */
+  overflow-x: auto; /* allows horizontal scroll if needed */
+}
+
+/* Smooth scroll for overflow on very small screens */
+#navbar::-webkit-scrollbar {
+  display: none;
+}
+
+#navbar ul {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+#navbar ul li a {
+  color: var(--fg);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s;
+  font-family: 'JetBrains Mono', monospace;
+  white-space: nowrap; /* prevents wrapping */
+}
+
+#navbar ul li a:hover {
+  color: var(--muted);
+}
+
+/* FLOATING ANIMATION */
+@keyframes floatNavbar {
+  0%, 100% { transform: translate(-50%, 0px); }
+  50% { transform: translate(-50%, -6px); }
+}
+
+/* --- MOBILE RESPONSIVE --- */
+@media (max-width: 768px) {
+  #navbar {
+    padding: 8px 20px;
+    border-radius: 15px;
+  }
+  #navbar ul {
+    gap: 20px;
+  }
+  #navbar ul li a {
+    font-size: 0.85em;
+  }
+}
+
+@media (max-width: 480px) {
+  #navbar {
+    padding: 6px 12px;
+    border-radius: 12px;
+  }
+  #navbar ul {
+    gap: 12px;
+  }
+  #navbar ul li a {
+    font-size: 0.75em;
+  }
+}
+
+</style>
+
+
+</head>
+<body>
+<!-- NAVBAR -->
+<nav id="navbar">
+  <ul>
+    <li><a href="#hero">Home</a></li>
+    <li><a href="#timeline">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="https://vyxm.in/blogs" target="_blank">Blogs</a></li>
+    <li><a href="#footer">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- GLOBAL ASCII CAT BACKGROUND -->
+<pre style="
+  position:fixed;
+
+  top:0;
+  left:50%;
+  width:100%;
+  height:100%;
+  pointer-events:none;
+  z-index:-1;
+  opacity:0.15;
+  font-size:5px;
+  line-height:1;
+  white-space:pre-wrap;
+  color:var(--fg);
+">
+                                                                                                                                                                                                        
+                                                                                                                                  $$x+XX                                                                
+                                                                                                                               $$x++++X                                                                 
+                                                                                                                             $X+++++++$                                                                 
+                                                                                                                          X$X++++++++XX                                                                 
+                                                                                                                        X$++++++++++x$                                                                  
+                                                                                                                      X$X+++++++++++$                                                                   
+                                                                                                                    X$x++++++++++++XX                                                                   
+                                                                                                                  +$x+++++++++++++xX                                                                    
+                                                                                                                 $$+++++++++++++++$                         X$$X                                        
+                                                                                                               XX+++++Xx++++++++x$                    +$$$X++++X                                        
+                                                                                                              $X++++x$+++++++++x$X                 $$$x+++++++X$                                        
+                                                                                                            X$x+++++$+++++++++x$x               X$X++++++++++X$                                         
+                                                                                                           $X+++++$X+++++++++x$X            X$$x++++++++++++$$                                          
+                                                                                                          XX+++++XX+++++++++x$$           X$x++++++xX++++++$X                                           
+                                                                                                         $X++++xXx+++++++++X$X         X$x++++++xX+;;x++++X+                                            
+                                                                                                        $X++++XX+x++++++++X$X       X$X++++++xXx;;:+x+++x$X                                             
+                                                                                                       $X++++XX+X++++++++x$       +$+++++++x$;;;;:x++++X$                                               
+                                                                                                      XX++++Xx;+++++++++X$      $X++++++x$x;;;;;;x++++$$                                                
+                                                                                                      $++++Xx;+x+++++++X$     Xx++++++xX+;;;;;;;X++++$$                                                 
+                                                                                                     XX++++X+;x+++++++X$    XX++++++x$x;;;;;;;+X++++$X                                                  
+                                                                                                     $++++$+;x+++++++$$   X+++++++XX+;;;;;;:;X+++x$$                                                    
+                                                                                                    X$+++Xx;;x++++++$X   x++++++X$+;;;;;;;;;X++++$X                                                     
+                                                                                                    $x++xX+;X+++++x$X  Xx+++++XX+;;;;;;;:+X++++$$                                                       
+                                                                                                    $+++X++x+++++X$   X+++++x$+;;;;;;;;;X++++X$X                                                        
+                                                                                                   ;$++xX+;X++++X$   X+++++$X;;;;;;;:;xX+++x$X                                                          
+                                                                                                 +X+X++XXx+++++XX   x++++XX;;;;;;;:+X++++X$X                                                            
+                                                                         X$$$$$x           +++xX$$Xx$$xXxX$+++XX    x+++Xx;;;;;;:xX+++xX$x                                                              
+                                                                        $$&$$xx$$               XX$XXxXXXXxX+XX    X+++X+;;;;++Xx++xX$$X                                                                
+                                                                      X$$$&&&$X+$$        x$$$$$X++xXXXX$XXXX$X   X++XX;;++XX+++xX$$x                                                                   
+                                                                      $$$$&$&&$;X$X    X$$$X+$$$$$X+++++X++xX$X  X++Xx;xXX++xx$$$X                                                                      
+                                                                     $$X$&&&&&$$+$$ XX+$$&&$&&&&&&$$+X++++++++xxx++XXX++xX$$XX                                                                          
+                                                                     $&$$&&$&&$&X&$X++$$$&$&&$&&$&$&XX++++++++++++X++x$$$X                                                                              
+                                                                    +$&&&$&&&&$&$$$$$$$+&&&$&&&&&&&$$X++++++++++++x$$X                                                                                  
+                                                                    +&$&&&&$&&&$&$&$$$;$&$&&&$&$&$&$$&$X++++++++++X$                                                                                    
+                                                                    +&&&$&&&&$&&&$$X$$x$&&&$&&&&&&&&$&$&$$X+++++++X$X                                                                                   
+                                                            x        $&$&&$&&&&$&$X$&X$&$&&&&&&&&$&$&$$$&&$$$Xx+++X$X                                                                                   
+                                                             XX      $$&&&&&&$&&$$x$$X$&&&$&$&$&&&&$$XXX$$$&$&$$X+XX$                                                                                   
+                                                               $X    $$&$$&$&&$$$X+$$$$$&&&&&&&$&$&$$++++xX$$$$&$$$$X                                                                                   
+                                                      XXX        x$X $$$&&&&&&$Xx++$&$$&&&&&&&&&&$$$x++++++++X$$$&$&$$                                                                                  
+                                                           $$$$X   X$;:.X$$$$$X++++$&&&&$&$&$&$$$$$x+++++++++++x$$$&&$$$                                                                                
+                                                                +$$$:..;.:;$$Xx+++++$&$&&&&&&&&$$$$$$$$$$$$$Xx+++X$$$&$$$$                                                                              
+                                                                 X$..:.;;;;+++;..::++X$$$&$&$$$;...:....:......:X$$X$$&$$$$$x                                                                           
+                                                                 X$;;;;;:;;.;:.;++;::::x$&&$X+;::::.:.:..:.:.:.:..:XX   X$$$$$                                                                          
+                                                         XXXXXXxxx$+....:.X;+;;+.::;;;;;;;::.:.:.......:..:.:...:...:XX   $&$$&$                                                                        
+                                                     XXXX         X$::.:..+.+..+......:..:.:.:;xx;:.:.:.:....:.:.:.:.:x$   $$&$$$                                                                       
+                                                                   x$:..:.:;;.:+.:.:.:.:...........:+x:..:.:........:::xX   $$&&$$                                                                      
+                                                                     $+..:.;.:.:.:..:...:.:.:.:.:.:..:.:..:.:.:.:.:...;;+X   $$&$X                                                                      
+                                                                      $$;.:..+++:.:..:.:..:..:.:...:....:....:.:.:.:.:;++X                                                                              
+                                                                        $$;:...::..:....:..:....:.:.:.:..:.:........:;;;+X                                                                              
+                                                                           $$$;..:;.:.:..:..:.:......:.:..:.:.:.:.:;;;;;xX                                                                              
+                                                                              $$$X;:;;:.:.:..:.:.:.:....:....:.:;;;;;;XX+X                                                                              
+                                                                                  +$$$XX+;;;:::::.:.:.::::;;;;;;;+xX$X                                                                                  
+                                                                                        XX::;;;;;;;;;;;;;+++X$$$$X                                                                                      
+                                                                                         x$.::;;;$$$X;;+++                                                                                              
+                                                                                      XXxX$:.;XXXxxXX$                                                                                                  
+                                                                                      $$XX$X+++x++XX$                                                                                                   
+                                                                                      $$X$XXxx++xXXXX                                                                                                   
+                                                                                     X$XXX+xx+X$XXxxx$X                                                                                                 
+                                                                                    X$xxx++xxXxXx+++x+$X                                                                                                
+                                                                                   $$x+++++xx+x+x++xx+x$$                                                                                               
+                                                                                  X$xx+Xx++x++xxx+x+xx+x$$                                                                                              
+                                                                                 $$x+++xx+++x+xXx+++++++x$$                                                                                             
+                                                                               $XXX+x++++x+x+++$x++++xx+++X$                                                                                            
+                                                                              XxXX+++x+++++++++$x++x+++x+++X$X                                                                                          
+                                                                              XX$++x+xx+x++x+++$x+++x+x+x++xX$X                                                                                         
+                                                                               $X+++x+x++x+++++$xx+++++++xxXX$$$                                                                                        
+                                                                              XX++x+x++x+x+++++$x+++xX$$$$$$$X$$                                                                                        
+                                                                              $x+++++x+x+++++++$xX$XX$$XXx++X$                                                                                          
+                                                                             XX++x+x++x+x+xx+x+XXX$$X+X++++++$$                                                                                         
+                                                                             $X+++x+++++x++x++x++xX$::+++++++x$$                                                                                        
+                                                                             $x+x++x+xx+xx+x++xXXXX$::X+++++++X$                                                                                        
+                                                                            xX++++x+x++++++xXXXXXX$$;$+++++++X$$                                                                                        
+                                                                            $x++x+++xxxXXXXXXxx+xxX$X++++++xX$X                                                                                         
+                                                                           XXx+x+xXXXXXXXx++++++xX$x++++++X$$     +;+                                                                                   
+                                                                         XXXxXXXXXX$Xx++++x++XXX$$++++++XX$  +X$$;:.x                                                                                   
+                                                                      $X++xXXxxXX+++++++++xX$$$$:;++++X$$X$xXXx;...:X                                                                                   
+                                                                     $$++x+++++x++++x+++x$$$&$&$;.X+xX$$$$$&$&$+.:.;X                                                                                   
+                                                                      $$X++x+x++x++++xX$$$&&&&&&$::X$+X$$&$&&$$+:.;$                                                                                    
+                                                                        $$Xx++++++X$$$$$&&$$$&$&$X::+;$$$$&$$$$+:+XX                                                                                    
+                                                                          X$$$$$$$$$$$&$&&&&&$&$&$X;;$$$$$&$&$+++;X                                                                                     
+                                                                           X$&$&$&&&&&&&$&$&&&&&&&$$$$$$$$$X+;;;;XX                                                                                     
+                                                                            $$&&&$&$&&$&&&&&$&&$&&$&$&&$$X;;;;;;$+                                                                                      
+                                                                            $$$&$&&&&&&&&$&&&$&&&&&&&$$$&$X;+x$X                                                                                        
+                                                                          $$$$$$&$&$&$$&&&&$&&$&$&$&&&&$&$&+                                                                                            
+                                                                         $&&&&&&&&&$&$$$&$&&&&&&&&&&$&&&&$&$                                                                                            
+                                                                         $$$$&$&$&$&$$$$$&&$&$&&&&$&&$&$$$$X                                                                                            
+                                                                          x$$$&$&$&&$$$$$$$&$&&$&$&$&$&$$                                                                                               
+                                          XXXXXX                          X$XX$$$&$&$&$$$$$&&&$&$&&$$$$X$$                                                                                              
+                                       +X:..:.:..:$                      XX++XXXX$$$$$$$$$$$$&$&$$$XXXXXX$$                                                                                             
+                                       $:.:....:.:.+X                   X$++++XX$X+$$$$$           X$XXXXXX$                                                                                            
+                                      $X...:.:.......XX                 $X++++x$X                    $$XXXXXX$X                                                                                         
+                                      $X:.:...:.:.::::;X               $x+++++$X                      X$$XXX+++++xxxx+++++X                                                                             
+                                      X$:..:.:..:....;+X$             $X+++++X$                         $$$XX+++++++++++x;XX                                                                            
+                                       $x:....:..:.:..:XX$X          XX+++++X$X                            $$XX+++++++++x;;$                                                                            
+                                       +$+:.:..:..:.:.:++XX$         $+++++x$$                               $$$XXx+++++x;;$                                                                            
+                                        $$+..:..:.:.+:;++++X$x      $x+++++X$                                $$XXX+++++x+;;$                                                                            
+                                         $$X;.:....:.:+++++++X$    XX+++++X$                                 $XX+++++++X;;x$                                                                            
+                                           $$;.:.:....:x+++++++$X XX++++++$X                                $$X++++++++X;;XX                                                                            
+                                            $$+;..:.:..:X+++++++XXX++++++X$                                X$x++++++++xx;;$X                                                                            
+                                             X$$x;:..:.:.x+++++++xX+++++x$x                               XX++++++++++X+;+$                                                                             
+                                               $$$;;:...:.+++++++++x++++X$                  X$$$XX$$$$$$X$X+++++++++++X;;x$                                                                             
+                                                 $$$+;;..:.++++++++++++x$$                 $X:...:....:.:++XXXXx+++++x+;;X$                                                                             
+                                                    $$X;;;..:X+++++++++X$X                $+:.:::.:.:...:....;XXXx+++X;;+$                                                                              
+                                                      $$X;;;:.:X++++++X$$                X$..:.;:....:.:;.:.:..;xx++++;;X$                                                                              
+                                                        $$$x;;;;;x+++x$$                 X$.:..;;:.:....+..:.:...++++;;x$                                                                               
+                                                           $$X;;;;;;;X$$$$$$$$$&$$$$$$   $$+.:..+.:.:.:.;.....:.::;:;;+$                                                                                
+                                                              X$Xx+xX$     &$&&&&$&$&      $X++;++;;;;;;++;;;;;++++++X                                                                                  
+                                                                                                                                                                                                        
+</pre>
+
+<!-- HEADER IMAGE & AVATAR -->
+<div id="header" class="fade">
+  <div id="avatar"></div>
+</div>
+
+<!-- HERO -->
+<section id="hero" class="fade">
+  <h1>(Vyom Nishant Patel)</h1>
+  <div class="handle">@Vyomie</div>
+  <p class="bio">
+    AI / ML Developer · Cognitive Systems Researcher · 16 y/o  
+    GPA 3.65 / 4 · 
+    Exploring Adaptive intelligence, Liquid Neural Networks, and efficient architectures.  
+    Founder of <a href="#">QuantaML</a>.
+  </p>
+</section>
+
+<!-- TIMELINE -->
+<section id="timeline" class="fade">
+  <h2>Timeline</h2>
+  <div class="timeline">
+    
+    <div class="timeline-entry">
+      <div class="time">Forecast 2026</div>
+      <h3>McNaCl (Minecraft Neural Algorithim Circuit Library)</h3>
+      <p>Python package made for creating complex neural network redstone structures in vanila minecraft.</p>
+    </div>
+
+    <div class="timeline-entry">
+      <div class="time">Sept 2025 — Present</div>
+      <h3>Pandora: AI-Powered EdTech Platform</h3>
+      <p>Developing adaptive curriculum system with real-time learning analytics for personalized education.</p>
+    </div>
+    
+    <div class="timeline-entry">
+      <div class="time">Dec 2024 - Present</div>
+      <h3>Quantum Neural Network (Prototype)</h3>
+      <p>Hybrid Qiskit + PyTorch model for quantum-classical exploration using rotational entanglement.</p>
+    </div>
+
+    <div class="timeline-entry">
+      <div class="time">Nov 2024 — Present</div>
+      <h3>QuantaML (Founder & Lead)</h3>
+      <p>Leading a collective focusing on compute-efficient ML models: ArthaLM, Lumen, etc.</p>
+    </div>
+
+    <div class="timeline-entry">
+      <div class="time">Jul 2025 - Sept 2025</div>
+      <h3>Artha-1 (LLM)</h3>
+      <p>400M-parameter foundational LLM with custom architecture and semantic liquid blocks.</p>
+    </div>
+
+    <div class="timeline-entry">
+      <div class="time">Jan 2024 — Oct 2025</div>
+      <h3>Liquid Neural Network (Research Draft)</h3>
+      <p>Adaptive drone navigation framework using Liquid Neural Networks submitted for review to Journal of Emerging Investigators(JEI).</p>
+    </div>
+
+    <div class="timeline-entry">
+      <div class="time">Oct 2024</div>
+      <h3>PRAYAAS Research Initiative - National Level</h3>
+      <p>Selected for my research on liquid neural networks in PRAYAAS Initiative by National Council of Educational Research and Training(NCERT).</p>
+    </div>
+  </div>
+</section>
+
+<!-- TECHNOLOGIES -->
+<section id="technologies" class="fade">
+  <h2>Technologies</h2>
+  <div class="tech-grid">
+    <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt=""><div>Python</div></div>
+    <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg" alt=""><div>PyTorch</div></div>
+    <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg" alt=""><div>TensorFlow</div></div>
+    <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt=""><div>JavaScript</div></div>
+    <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" alt=""><div>C++</div></div>
+    <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" alt=""><div>Linux</div></div>
+    <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt=""><div>HTML/CSS</div></div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" class="fade">
+  <h2>Projects</h2>
+  <div class="projects">
+    <div class="project">
+      <img src="https://images.unsplash.com/photo-1555949963-aa79dcee981c?auto=format&fit=crop&w=900&q=60" alt="">
+      <div class="project-title">Artha-1</div>
+      <div class="tooltip">
+        Independently built 400 M-parameter LLM using PyTorch with modular reasoning units and custom tokenizer.
+      </div>
+    </div>
+    <div class="project">
+      <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=900&q=60" alt="">
+      <div class="project-title">Quantum Neural Networks</div>
+      <div class="tooltip">
+        Quantum Neural Network Model with Qiskit having ~2500 parameters using Rotational entanglement to classify compressed images of cats and dogs on real quantum hardware.
+      </div>
+    </div>
+    <div class="project">
+      <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=900&q=60" alt="">
+      <div class="project-title">Liquid Neural Network for Continual learning in Dynamic Environments</div>
+      <div class="tooltip">
+        Research paper on continual learning navigation agent achieving 97% success in obstacle-rich maps without large pre-training on datasets.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TWEETS -->
+<section id="tweets" class="fade">
+  <h2>Recent Notes</h2>
+  <div class="tweets">
+    <div class="tweet">
+      <div class="meta">@Vyomie · 2025-10-22</div>
+      <div>Working on an adaptive RL module for LNNs. The weights stabilized after tuning η = 0.002.</div>
+    </div>
+    <div class="tweet">
+      <div class="meta">@Vyomie · 2025-10-18</div>
+      <div>Trying to quantize Liquid cells without losing temporal adaptivity. Harder than it looks.</div>
+    </div>
+    <div class="tweet">
+      <div class="meta">@Vyomie · 2025-10-14</div>
+      <div>Prototype for the Pandora Manim API is generating custom animations in real-time. Early signs of promise.</div>
+    </div>
+  </div>
+
+<!-- SPOTIFY & GITHUB -->
+<section id="widgets" style="padding:40px 20px; text-align:center; color:#fff; font-family:'JetBrains Mono', monospace;">
+  <h2 style="margin-bottom:30px; font-size:2em; color:#fff;">Spotify & GitHub</h2>
+  <div style="display:flex; justify-content:center; align-items:flex-start; gap:40px; flex-wrap:nowrap;">
+
+    <!-- Spotify -->
+    <div style="flex:0 0 50%;">
+      <div style="margin-bottom:10px; font-weight:bold; font-size:1.2em;">Spotify Playlist</div>
+      <div style="border-radius:12px; overflow:hidden;">
+        <iframe 
+          src="https://open.spotify.com/embed/playlist/29BaDUJS5n5venJE9TRfmF?si=zMBabEc4S8u5WkSNNPKakw" 
+          width="320" 
+          height="50%" 
+          frameborder="0" 
+          allowtransparency="true" 
+          allow="encrypted-media">
+        </iframe>
+      </div>
+    </div>
+
+    <!-- GitHub -->
+    <div style="flex:0 0 50%;">
+      <div style="margin-bottom:10px; font-weight:bold; font-size:1.2em;">Latest GitHub Commits</div>
+      <div id="githubWidget" style="padding:15px; min-height:380px; background:#222; border-radius:8px; color:#fff; overflow:auto;">
+        Loading...
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- QUOTES / POETRY -->
+<section id="quotes" class="fade" style="position:relative;">
+  <!-- ASCII cat background -->
+  <div style="position:relative;z-index:1;text-align:center;max-width:800px;margin:auto;color:var(--fg);">
+    <h2>Reflections</h2>
+    <p>"Life is like chess, you never know what's there to come, you can just try to predict but never be sure."</p>
+    <br>
+    <p>"Stronger than ever before."</p>
+    <br>
+    <p>"When life gives you lemons, open a f*cking lemonade stand."</p>
+  </div>
+</section>
+
+<!-- ASCII ART: VYOMIE -->
+<section class="ascii fade">
+<pre>
+Y88b      /                                                ,e,              
+ Y88b    /      Y88b  /      e88~-_      888-~88e-~88e      "       e88~~8e 
+  Y88b  /        Y888/      d888   i     888  888  888     888     d888  88b
+   Y888/          Y8/       8888   |     888  888  888     888     8888__888
+    Y8/            Y        Y888   '     888  888  888     888     Y888    ,
+     Y            /          "88_-~      888  888  888     888      "88___/ 
+                _/                                                          </pre>
+</section>
+
+<!-- CONTACT -->
+<footer id="footer" class="fade">
+  <div>GitHub : <a href="https://github.com/Vyomie" target="_blank">github.com/Vyomie</a></div>
+  <div>Blog : <a href="https://vyxm.in/blogs" target="_blank">vyxm.in/blog</a></div>
+  <div>Email : <a href="mailto:contact@vyxm.in">contact@vyxm.in</a></div>
+  <br>© 2025 Vyom Nishant Patel
+</footer>
+
+<script>
+  // fade reveal on scroll
+  const io=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});
+  },{threshold:0.1});
+  document.querySelectorAll('.fade').forEach(el=>io.observe(el));
+
+  // Spotify mock (replace token with your bearer token)
+  const SPOTIFY_TOKEN="YOUR_SPOTIFY_BEARER_TOKEN";
+  async function fetchSpotify(){
+    try{
+      const res=await fetch("https://api.spotify.com/v1/me/player/currently-playing",{headers:{Authorization:`Bearer ${SPOTIFY_TOKEN}`}});
+      if(res.status!==200){document.getElementById('spotifyWidget').textContent="Not playing";return;}
+      const data=await res.json();
+      document.getElementById('spotifyWidget').textContent=`${data.item.name} — ${data.item.artists.map(a=>a.name).join(', ')}`;
+    }catch(e){document.getElementById('spotifyWidget').textContent="Error fetching Spotify";}
+  }
+  fetchSpotify();
+  setInterval(fetchSpotify,15000);
+</script>
+
+
+<script>
+async function fetchLatestCommits() {
+  const url = "https://api.github.com/search/commits?q=author:Vyomie&order=desc&sort=committer-date";
+  const container = document.getElementById("githubWidget");
+
+  try {
+    const res = await fetch(url, {
+      headers: {
+        "Accept": "application/vnd.github.cloak-preview+json"
+      }
+    });
+    if (!res.ok) throw new Error("GitHub API error");
+    const data = await res.json();
+
+    container.innerHTML = "";
+
+    // Take the first 3 commits
+    data.items.slice(0, 5).forEach(commit => {
+      const commitDiv = document.createElement("div");
+      commitDiv.style.marginBottom = "10px";
+      commitDiv.style.padding = "10px";
+      commitDiv.style.borderLeft = "2px solid #555";
+
+      commitDiv.innerHTML = `
+        <a href="${commit.html_url}" target="_blank" style="color:#999; font-weight:italic;">
+          ${commit.commit.message}
+        </a>
+        <div style="color:#999; font-size:0.65em; margin-top:5px;">
+          ${commit.commit.author.name} • ${new Date(commit.commit.author.date).toLocaleString()} • Repo: <a href="${commit.repository.html_url}" target="_blank">${commit.repository.full_name}</a>
+        </div>
+      `;
+      container.appendChild(commitDiv);
+    });
+
+  } catch (err) {
+    container.textContent = "Unable to load commits.";
+    console.error(err);
+  }
+}
+
+fetchLatestCommits();
+</script>
+</body>
+</html>

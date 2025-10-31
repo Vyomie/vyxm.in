@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Artha Chat</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <script defer src="script.js"></script>
+</head>
+<body class="dark">
+  <nav class="topbar container">
+    <div class="logo">ARTHA</div>
+    <div class="links">
+      <button onclick="window.open('https://github.com', '_blank')"><img src="github.png" alt="GitHub" class="icon"></button>
+      <button onclick="window.open('https://huggingface.co', '_blank')"><img src="huggingface.png" alt="Hugging Face" class="icon"></button>
+      <button onclick="window.location.href='/'" class="nav-home">Home</button>
+
+      <button id="toggle-theme">🌓</button>
+    </div>
+  </nav>
+
+  <main id="chat-container" class="container"></main>
+
+  <div class="input-area container">
+    <input type="text" id="user-input" placeholder="Type a message..." disabled />
+    <button id="send-btn" disabled><img src="send.png" alt="Send" class="send-icon" /></button>
+  </div>
+</body>
+</html>
