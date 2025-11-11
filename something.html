@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Happy 6 Months 💜</title>
+  <style>
+    :root{--bg1:#120019;--bg2:#5a2b8c;--accent:#ffd1f0;--soft:#f5eefe}
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%;font-family:Inter,system-ui,Roboto,Helvetica,Arial,sans-serif;color:var(--soft);background:radial-gradient(800px 400px at 10% 10%, rgba(255,210,240,0.05), transparent), linear-gradient(135deg,var(--bg1),var(--bg2));-webkit-font-smoothing:antialiased}
+
+    .wrap{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:28px 18px 48px;gap:18px}
+    header{text-align:center}
+    h1{font-size:clamp(1.6rem,3.6vw,2.4rem);}
+    p.sub{color:var(--accent);opacity:0.95;margin-top:6px}
+
+    /* counter */
+    .counter{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:12px}
+    .pill{background:rgba(255,255,255,0.06);padding:10px 14px;border-radius:12px;min-width:86px;text-align:center;backdrop-filter:blur(4px)}
+    .pill .n{font-weight:800;font-size:1.1rem}
+    .pill .label{font-size:0.8rem;opacity:0.95}
+
+    /* controls row */
+    .controls{display:flex;gap:12px;justify-content:center;margin-top:14px}
+    .btn{padding:10px 16px;border-radius:10px;border:none;cursor:pointer;font-weight:700}
+    .btn.primary{background:linear-gradient(90deg,#a156d6,#7f39b1);color:white}
+    .btn.sweet{background:linear-gradient(90deg,#ffd1f0,#e09cf5);color:#3d0036}
+
+    /* gallery stacked area */
+    .stack-area{position:relative;width:min(860px,96vw);height:min(520px,65vh);max-height:720px;margin-top:16px;border-radius:16px;overflow:visible}
+    .stack-ground{position:absolute;inset:0;border-radius:16px;padding:18px;background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);box-shadow:0 18px 60px rgba(0,0,0,0.45);overflow:hidden}
+
+    .card-stack{position:absolute;left:50%;top:50%;width:420px;height:320px;transform:translate(-50%,-50%);pointer-events:none}
+    .photo-card{position:absolute;width:220px;height:150px;border-radius:10px;background:#fff;padding:8px;box-shadow:0 22px 60px rgba(0,0,0,0.55);border:6px solid #fff;overflow:hidden;cursor:pointer;pointer-events:auto;transition:transform .35s cubic-bezier(.2,.9,.2,1), box-shadow .35s, z-index 0.01s}
+    .photo-card img{width:100%;height:100%;object-fit:cover;border-radius:6px}
+
+    /* when active/expanded */
+    .photo-card.pop{transform:translate(-50%,-55%) scale(1.12) rotate(0deg);z-index:9999;box-shadow:0 40px 110px rgba(0,0,0,0.65)}
+
+    /* rotating disk + playing text */
+    .now-playing{position:fixed;top:18px;right:18px;display:flex;align-items:center;gap:10px;background:rgba(255,255,255,0.03);padding:8px 12px;border-radius:28px;backdrop-filter:blur(6px);box-shadow:0 8px 30px rgba(0,0,0,0.5);z-index:999}
+    .disk{width:36px;height:36px;border-radius:50%;background:conic-gradient(#ffd1f0,#b56be8 30%,#7d3aa7 70%);display:flex;align-items:center;justify-content:center;box-shadow:inset 0 -4px 6px rgba(0,0,0,0.25)}
+    .disk .center{width:10px;height:10px;border-radius:50%;background:#111}
+    .spin{animation:spin 3s linear infinite}
+    @keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+
+    /* floating hearts */
+    .hearts{position:absolute;inset:0;pointer-events:none}
+    .h{position:absolute;width:18px;height:18px;opacity:0.9}
+    @keyframes bob{0%{transform:translateY(0)}50%{transform:translateY(-18px)}100%{transform:translateY(0)}}
+
+    /* photo viewer modal */
+    .viewer{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.85);z-index:1200;opacity:0;pointer-events:none;transition:opacity .22s}
+    .viewer.open{opacity:1;pointer-events:auto}
+    .viewer img{max-width:92vw;max-height:86vh;border-radius:12px;box-shadow:0 30px 80px rgba(0,0,0,0.7)}
+
+    footer{margin-top:18px;opacity:0.9}
+
+    /* responsive tweaks */
+    @media (max-width:720px){
+      .card-stack{width:320px;height:240px}
+      .photo-card{width:170px;height:120px}
+      .now-playing{top:auto;bottom:14px;right:14px}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Happy 6 Months 💜</h1>
+      <p class="sub" id="subtitle">Counting since May 12, 2025 03:00 AM</p>
+    </header>
+
+    <div class="counter" aria-live="polite">
+      <div class="pill"><div class="n" id="months">0</div><div class="label">months</div></div>
+      <div class="pill"><div class="n" id="days">0</div><div class="label">days</div></div>
+      <div class="pill"><div class="n" id="hours">0</div><div class="label">hours</div></div>
+      <div class="pill"><div class="n" id="minutes">0</div><div class="label">minutes</div></div>
+      <div class="pill"><div class="n" id="seconds">0</div><div class="label">seconds</div></div>
+    </div>
+
+    <div class="controls">
+      <button class="btn primary" id="openCard">Open the Card 💌</button>
+      <button class="btn sweet" id="confetti">Surprise 🎉</button>
+    </div>
+
+    <div class="stack-area" aria-hidden="false">
+      <div class="stack-ground"></div>
+      <div class="card-stack" id="cardStack" role="list">
+        <!-- photo cards injected by JS -->
+      </div>
+      <div class="hearts" id="hearts"></div>
+    </div>
+
+    <footer>Made with lots of love 💜</footer>
+  </div>
+
+  <!-- now playing -->
+  <div class="now-playing" id="nowPlaying" aria-hidden="true" style="display:none">
+    <div class="disk" id="disk"><div class="center"></div></div>
+    <div style="font-weight:700">Playing Dagabaaz Re... 🎶</div>
+  </div>
+
+  <!-- love card modal -->
+  <div id="modal" class="viewer" role="dialog" aria-modal="true">
+    <div class="love-card" style="width:92vw;max-width:560px;background:linear-gradient(180deg,#4a1a63,#6b2b8c);border-radius:14px;padding:20px;color:var(--soft);box-shadow:0 30px 90px rgba(0,0,0,0.6);">
+      <button class="close-x" id="closeCard">✕</button>
+      <h3 style="margin-bottom:12px">My Love,</h3>
+      <div style="white-space:pre-wrap;line-height:1.45">Six months may seem like a short time, but with you, every second has felt infinite — full of laughter, warmth, and little pieces of forever.
+
+You are my calm, my excitement, my favorite part of every day. Thank you for loving me so effortlessly.
+
+Here’s to every sunrise we’ll share, and every dream we’ll make real together.
+
+<strong>Forever yours. 💜</strong></div>
+    </div>
+  </div>
+
+  <!-- photo viewer -->
+  <div id="photoViewer" class="viewer"><img id="photoBig" src="" alt="enlarged photo"></div>
+
+  <!-- audio element (local file song.mp4) -->
+  <audio id="music" src="song.mp4" loop preload="auto"></audio>
+
+  <script>
+    // --- configuration: use the 4 URLs provided by you ---
+    const IMAGES = [
+      'https://media.discordapp.net/attachments/1419989092795416638/1419989192682901605/IMG_20250922_225531_733.jpg?ex=69145cfd&is=69130b7d&hm=824eb187c2342bfe8ca6b0b26c338f2f7b71ee2d2be95b931830de4046bd58a2&=&format=webp&width=290&height=516',
+      'https://media.discordapp.net/attachments/1419989092795416638/1422216252000174110/IMG_20250929_190836_944.jpg?ex=6913e559&is=691293d9&hm=3e31cb134dbc2785210426585aa1aeaffe49424c1e53d30a96d321ca43011777&=&format=webp&width=290&height=516',
+      'https://media.discordapp.net/attachments/1419989092795416638/1419989192171323473/IMG_20250922_225533_423.jpg?ex=69145cfd&is=69130b7d&hm=7b9f5e34c23c538fe23e89b06557f4f2cca44ceec8ae3c60273c07f8c6b6596a&=&format=webp&width=290&height=516',
+      'https://media.discordapp.net/attachments/1419989092795416638/1430020479913168907/IMG_20251021_075858_613.jpg?ex=6913f15a&is=69129fda&hm=cbbcf4aaa22db9ba4ff4e09593880ea31f4eb186f980b5249eed71bd90315895&=&format=webp&width=290&height=516'
+    ];
+
+    const START_ISO = '2025-05-12T03:00:00';
+    const monthsEl = document.getElementById('months');const daysEl = document.getElementById('days');const hoursEl = document.getElementById('hours');const minutesEl = document.getElementById('minutes');const secondsEl = document.getElementById('seconds');const subtitle = document.getElementById('subtitle');
+
+    function updateCounter(){const start=new Date(START_ISO);const now=new Date();let months=(now.getFullYear()-start.getFullYear())*12+(now.getMonth()-start.getMonth());let anchor=new Date(start);anchor.setMonth(anchor.getMonth()+months);if(anchor>now){months--;anchor=new Date(start);anchor.setMonth(anchor.getMonth()+months);}const remMs=now-anchor;const days=Math.floor(remMs/(1000*60*60*24));const hours=Math.floor(remMs/(1000*60*60))%24;const minutes=Math.floor(remMs/(1000*60))%60;const seconds=Math.floor(remMs/1000)%60;monthsEl.textContent=months;daysEl.textContent=days;hoursEl.textContent=String(hours).padStart(2,'0');minutesEl.textContent=String(minutes).padStart(2,'0');secondsEl.textContent=String(seconds).padStart(2,'0');subtitle.textContent=`Counting from ${start.toLocaleString()} — updated live.`}
+    updateCounter();setInterval(updateCounter,1000);
+
+    // build stacked, randomly-angled photo cards
+    const stack = document.getElementById('cardStack');
+    function rand(min,max){return Math.random()*(max-min)+min}
+
+    // create cards with random positions/angles but deterministic-ish for layout
+    IMAGES.forEach((src,i)=>{
+      const card = document.createElement('div'); card.className='photo-card'; card.setAttribute('role','listitem'); card.tabIndex=0; card.dataset.src = src;
+      const img = document.createElement('img'); img.src = src; img.alt = `photo ${i+1}`; card.appendChild(img);
+
+      // random placement within card-stack bounds
+      const offsets = [ {x:-60,y:-40,rot:-12},{x:-10,y:-10,rot:8},{x:40,y:30,rot:-6},{x:80,y:60,rot:10} ];
+      // add small jitter to each to feel natural
+      const o = offsets[i] || {x: rand(-70,80), y: rand(-60,80), rot: rand(-18,18)};
+      const left = `calc(50% + ${o.x}px)`; const top = `calc(50% + ${o.y}px)`;
+      card.style.left = left; card.style.top = top; card.style.transform = `translate(-50%,-50%) rotate(${o.rot}deg)`;
+
+      stack.appendChild(card);
+
+      // interactions: hover and click
+      card.addEventListener('mouseenter',()=>{ card.style.transform = 'translate(-50%,-55%) scale(1.06) rotate(0deg)'; card.style.zIndex = 999; });
+      card.addEventListener('mouseleave',()=>{ card.style.transform = `translate(-50%,-50%) rotate(${o.rot}deg)`; card.style.zIndex=''; });
+      // on click/tap: expand to center and open viewer
+      card.addEventListener('click',()=>{ openPhoto(src,card); });
+      card.addEventListener('keydown',(e)=>{ if(e.key==='Enter' || e.key===' ') { e.preventDefault(); openPhoto(src,card); } });
+    });
+
+    // open photo viewer
+    const viewer = document.getElementById('photoViewer'); const big = document.getElementById('photoBig');
+    function openPhoto(src,cardEl){
+      // pop the card visually
+      document.querySelectorAll('.photo-card').forEach(c=>c.classList.remove('pop'));
+      cardEl.classList.add('pop');
+      setTimeout(()=>{ big.src = src; viewer.classList.add('open'); },160);
+    }
+    viewer.addEventListener('click',()=>{ viewer.classList.remove('open'); document.querySelectorAll('.photo-card').forEach(c=>c.classList.remove('pop')); setTimeout(()=>big.src='',200); });
+
+    // spawn floating hearts randomly
+    const heartsWrap = document.getElementById('hearts');
+    function spawnHearts(count=22){
+      for(let i=0;i<count;i++){
+        const h = document.createElement('div'); h.className='h';
+        const x = rand(2,96); const y = rand(2,92);
+        h.style.left = x+'%'; h.style.top = y+'%'; h.style.width = `${rand(10,22)}px`; h.style.height = `${rand(10,22)}px`;
+        h.style.opacity = rand(0.6,0.98);
+        const svg = `<svg viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M12 21s-7.2-4.2-9.6-7.2C-0.5 9.6 3 3 8.4 5.4 10.8 6.6 12 9 12 9s1.2-2.4 3.6-3.6C21 3 25.5 9.6 21.6 13.8 19.2 16.8 12 21 12 21z\" fill=\"#ffb3da\"/></svg>`;
+        h.innerHTML = svg;
+        heartsWrap.appendChild(h);
+        const dur = rand(3500,8000);
+        h.animate([{transform:'translateY(0)'},{transform:`translateY(-${rand(10,40)}px)`},{transform:'translateY(0)'}],{duration:dur,iterations:Infinity,easing:'ease-in-out'});
+      }
+    }
+    spawnHearts(26);
+
+    // confetti
+    document.getElementById('confetti').addEventListener('click',()=>{ burstConfetti(); });
+    function burstConfetti(){
+      const canvas = document.createElement('canvas'); canvas.style.position='fixed'; canvas.style.left=0; canvas.style.top=0; canvas.width=innerWidth; canvas.height=innerHeight; canvas.style.zIndex=9999; document.body.appendChild(canvas); const ctx=canvas.getContext('2d'); const colors=['#ffd1f0','#f7c6ff','#7d3aa7','#b26ee6','#ffd1e6']; const ps=[]; for(let i=0;i<140;i++){ps.push({x:innerWidth/2,y:innerHeight/2,vx:(Math.random()-0.5)*14,vy:(Math.random()-0.8)*14,sz:3+Math.random()*8,col:colors[Math.floor(Math.random()*colors.length)],life:60+Math.random()*60});} let t=0; const id=setInterval(()=>{ctx.clearRect(0,0,canvas.width,canvas.height);ps.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=0.45;p.life--;ctx.globalAlpha=Math.max(0,p.life/100);ctx.fillStyle=p.col;ctx.beginPath();ctx.ellipse(p.x,p.y,p.sz,p.sz,0,0,Math.PI*2);ctx.fill();});t++; if(t>180){clearInterval(id);canvas.remove();}},16);
+    }
+
+    // audio handling: attempt autoplay, handle blocked state
+    const audio = document.getElementById('music'); const nowPlaying = document.getElementById('nowPlaying'); const disk = document.getElementById('disk');
+    let isPlaying = false;
+
+    async function tryPlay(){
+      try{
+        await audio.play(); isPlaying=true; showNowPlaying(true);
+      }catch(err){
+        // autoplay blocked — show small play hint (nowPlaying remains hidden until user interacts)
+        showNowPlaying(false,true);
+      }
+    }
+    // try once after a short delay to let page load
+    setTimeout(()=>{ tryPlay(); },600);
+
+    function showNowPlaying(show,showHint=false){
+      if(show){ nowPlaying.style.display='flex'; nowPlaying.setAttribute('aria-hidden','false'); disk.classList.add('spin'); }
+      else{
+        if(showHint){ nowPlaying.style.display='flex'; nowPlaying.setAttribute('aria-hidden','false'); nowPlaying.style.opacity='0.95'; disk.classList.remove('spin'); nowPlaying.title='Tap to play music'; }
+        else{ nowPlaying.style.display='none'; nowPlaying.setAttribute('aria-hidden','true'); disk.classList.remove('spin'); }
+      }
+    }
+
+    // clicking the nowPlaying UI toggles play
+    nowPlaying.addEventListener('click',async ()=>{
+      if(!isPlaying){ try{ await audio.play(); isPlaying=true; showNowPlaying(true); }catch(e){} }
+      else{ audio.pause(); isPlaying=false; showNowPlaying(false); }
+    });
+
+    // also start music on first user gesture if blocked
+    window.addEventListener('pointerdown', async function once(){ if(!isPlaying){ try{ await audio.play(); isPlaying=true; showNowPlaying(true); }catch(e){} } window.removeEventListener('pointerdown', once); });
+
+    // show now playing if audio starts (e.g., after user gesture)
+    audio.addEventListener('play', ()=>{ isPlaying=true; showNowPlaying(true); });
+    audio.addEventListener('pause', ()=>{ isPlaying=false; showNowPlaying(false); });
+
+    // place nowPlaying initially hidden; show when audio plays or when autoplay blocked (hint)
+
+    // open/close love card
+    const openCard = document.getElementById('openCard'); const modal = document.getElementById('modal'); const closeCard = document.getElementById('closeCard');
+    openCard.addEventListener('click',()=>{ modal.classList.add('open'); }); closeCard.addEventListener('click',()=>{ modal.classList.remove('open'); }); modal.addEventListener('click',(e)=>{ if(e.target===modal) modal.classList.remove('open'); });
+
+    // accessibility keys
+    document.addEventListener('keydown',(e)=>{ if(e.key==='Escape'){ modal.classList.remove('open'); document.getElementById('photoViewer').classList.remove('open'); } });
+
+    // show/hide nowPlaying hint based on initial attempt
+    // if play succeeded immediately, show playing; otherwise show hint so user knows where to tap
+    // the tryPlay call above will set that up
+
+  </script>
+</body>
+</html>
